@@ -58,27 +58,24 @@
   <audio data-key="76" src="sounds/tink.wav"></audio>
 
 <script>
-
-  // Play audio and add transition (yellow border) when keys are clicked
   
-  document.addEventListener("keydown", function (e) {
+  function playSound (e) {
     const audio = document.querySelector(`audio[data-key="${e.keyCode}"]`);
     audio.currentTime = 0;
     audio.play();
 
     const key = document.querySelector(`.key[data-key="${e.keyCode}"]`);
     key.classList.add("playing");
-  });
-
-  // Remove transition (yellow border) after keys are clicked
-  
-  const keys = document.querySelectorAll(".key"); // Creates an array of all keys
-
-  keys.forEach(key => key.addEventListener("transitionend", removeTransition)); // Loops over every key to listen for a transition end, and when a transition ends, runs the removeTransition function below
+  }
 
   function removeTransition () {
     this.classList.remove("playing");
   }
+
+  document.addEventListener("keydown", playSound); 
+  
+  const keys = document.querySelectorAll(".key");
+  keys.forEach(key => key.addEventListener("transitionend", removeTransition));
 
 </script>
 
